@@ -6,60 +6,51 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>my-html-app</artifactId>
+    <artifactId>my-maven-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>war</packaging>
+
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <build>
-        <plugins>
-            <!-- Maven Resources Plugin to copy static HTML files -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/app</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources</directory>
-                                    <includes>
-                                        <include>**/*.html</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
+    <!-- Profiles for different environments -->
     <profiles>
-        <!-- Staging Profile -->
         <profile>
             <id>staging</id>
             <properties>
-                <env>staging</env>
+                <environment>staging</environment>
+                <maven.deploy.url>http://staging.example.com</maven.deploy.url>
             </properties>
         </profile>
 
-        <!-- Production Profile -->
         <profile>
             <id>production</id>
             <properties>
-                <env>production</env>
+                <environment>production</environment>
+                <maven.deploy.url>http://production.example.com</maven.deploy.url>
             </properties>
         </profile>
     </profiles>
 
+    <build>
+        <plugins>
+            <!-- Example plugin for environment-specific configuration -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
