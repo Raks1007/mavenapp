@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple HTML App</title>
+</head>
+<body>
+    <h1>Welcome to My Simple HTML App</h1>
+    <p>This is the environment: <span id="env">loading...</span></p>
+
+    <script>
+        // Set the environment based on a meta tag or JavaScript variable
+        document.getElementById("env").innerText = window.location.hostname.includes('staging') ? 'Staging' : 'Production';
+    </script>
+</body>
+</html>
